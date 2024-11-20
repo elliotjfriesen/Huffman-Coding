@@ -1,0 +1,4 @@
+a1b2c3!@#$%^&*()\n\tHello, World!\nLine1\nLine2\n\\Backslash\\
+12345---ABCDE---67890
+*~`<>?/|{}[]+=_
+\"Quotes\" and \'Apostrophes\'\nEnd of random stuff.

@@ -1,0 +1,127 @@
+/**********************************************************
+* Project 3: ZAP
+* CS 15
+* README
+* 11/19/2024
+* Elliot Friesen efries01
+*********************************************************/
+
+Compile/run:
+     - Compile using
+            make
+     - Run with
+        ./zap [zap | unzap] inputFile outputFile
+
+
+Program Purpose: Implementation of the Huffman Coding algorithm
+
+
+Acknowledgements: Mark Sheldon
+
+
+Files: phaseOne.h phaseOne.cpp unit_tests.h main.cpp HuffmanCoder.h 
+HuffmanCoder.cpp Makefile 
+
+phaseOne.cpp:
+    Definitions of functions that serialize a Huffman Tree, 
+    deserialize a string into a Huffman Tree, and count the frequencies
+    of the characters within a string.
+
+phaseOne.h:
+    Declarations for phaseOne.cpp functions.
+
+unit_tests.h:
+    Tests the various functions within phaseOne.cpp
+
+main.cpp
+    Calls the HuffmanCoder constructor, initializing an instance of
+    the class that will take in the input and output files and call the
+    functions accordingly.
+
+HuffmanCoder.h
+    Interface for HuffmanCoder class. This file contains all of the function
+    declarations
+
+HuffmanCoder.cpp
+    Implementation for HuffmanCoder class. This file contains all of the
+    function definitions.
+
+Makefile
+    Properly links the files so that compilation is possible
+
+
+Data Structures:
+    There are multiple ADTs used in this program. One such ADT is the 
+    priority queue. The priority queue ADT is defined by insertion removal
+    and accessing of elements in a queue like structure, but instead
+    of FIFO, it is sorted by priority. This is essential to this project
+    because the Huffman tree building algorithm (discussed in the next
+    section) can be represented efficiently using a priority queue as 
+    the two elements with the least frequencies are chosen. The implementation
+    of the priority queue in this program utilized the binary heap
+    data structure. This is the standard implementation of a priority queue in
+    c++ because it gets the highest priority item in 0(1), and removal and 
+    insertion in o(logn). Two other situations were the priority queue
+    structure is useful are: a hospital system where patients with higher
+    degrees of injury are treated first, and a covid vaccination allocation
+    system where people of higher risk are given priority. Another ADT 
+    implemented in this project is a Huffman Tree. The Huffman Tree
+    is defined as a binary tree with an additional invariants of a parent
+    node having its frequency be a sum of the two children and every internal
+    node has exactly two children. The data structure used to implement this
+    is an accumulation of Huffman Nodes that point to one another. This allows
+    for access, insertion, and deletion of a character in maximum o(n) time.
+    A binary tree has many use cases, for example, one could implement 
+    a database system where each data-point is linked to another. Also,
+    one could implement a decision tree through the use of a binary tree. 
+    Continuing the discussion of ADTs, a map is used in multiple cases in
+    this program. One such case is for counting frequencies of characters.
+    Maps allow for insertion, accessing, and deletion in, on average o(1) time.
+    The data structure for this implementation is an array, where each
+    key is an index. The characters are counted by inserting them into the
+    map if they do not exist. If they do, then the value is incremented. Maps
+    are also used in the encoding of a string into its specified binary value.
+    When the Huffman Tree is traversed, the paths to each character are saved.
+    Which is then accessed in o(1) time via the map when encoding the string.
+    Other use cases for a map include the english dictionary (where each word
+    is the key, and the definition is the value) and a phone book (each 
+    persons name is the key, # number is the value).
+
+Algorithms:
+    An essential algorithm for Huffman Coding is implemented in the creation
+    of the Huffman Tree. It works as follows:
+     - Take the two lowest frequency nodes
+     - Make a parent node of those two and set the value to the summation
+     of their frequencies
+    - Insert the parent node into the list of nodes
+    - repeat until one node remains
+    This algorithm enables the construction of a Huffman tree, most effectively
+    written using a priority queue (as discussed earlier). Another algorithm
+    implemented is the decoding of a string. This works by taking a serialized
+    tree and constructing a Huffman tree. Then read the encoded bits and follow
+    said bits as if it were a path on the tree, leading to the creation of the 
+    decoded string. In order to serialize the tree, an additional algorithm is
+    used. In this case, this is a variation of a pre-order traversal, where
+    each node visited is either given an I for internal node or L value
+    for a leaf with a value.
+
+Testing:
+    For Phase One, the testing is done in the unit_tests file. In this file
+    I test the count frequencies function on different cases such as:
+        - empty string
+        - one character string
+        - many repeats
+        - capital letters
+        - spaces
+        - end lines
+    For the second phase of the project, I used test input files to ensure that
+    my Huffman algorithm was working properly. To observe if my program worked
+    properly, I compared the number of bits in each output file with the ground
+    truth program. The edge cases I explored are
+    empty input files, input files of one character. Input files of many
+    repeating characters. Also I used input files that have a wide variety
+    of characters as well as ones that are very long. I downloaded a list
+    of every word in the dictionary and tested my zap file on this. Also, I 
+    used every input file provided in the spec. All of these various inputs
+    lead to the same outputs across mine and the correct program, so I became
+    satisfied with the result.
